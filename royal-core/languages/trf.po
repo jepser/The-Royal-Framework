@@ -1,0 +1,527 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Jepser <jepsersk8@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+
+#. Text in function
+#: the-royal/single.php:21
+msgid " and tagged "
+msgstr " y etiquetado"
+
+#. Text in function
+#: the-royal/comments.php:12
+msgid "% comments"
+msgstr "% comentarios"
+
+#. Text in function
+#: the-royal/tag.php:17
+#: the-royal/search.php:19
+#: the-royal/author.php:22
+#: the-royal/category.php:19
+#: the-royal/index.php:15
+#: the-royal/archive.php:29
+msgid "%1$s &#8211; %2$s"
+msgstr "%1$s &#8211; %2$s"
+
+#. Text in function
+#: the-royal/header.php:9
+msgid "%s latest comments"
+msgstr "%s últimos comentarios"
+
+#. Text in function
+#: the-royal/header.php:8
+msgid "%s latest posts"
+msgstr "%s últimas publicaciones"
+
+#. Text in function
+#: the-royal/comments.php:36
+#: the-royal/comments.php:37
+msgid "(required)"
+msgstr "(requerido)"
+
+#. Text in function
+#: the-royal/comments.php:12
+msgid "1 Comment"
+msgstr "1 Comentario"
+
+#. Text in function
+#: the-royal/single.php:34
+#: the-royal/image.php:31
+#: the-royal/attachment.php:30
+msgid "<a class=\"comment-link\" href=\"#respond\" title=\"Post a comment\">Post a comment</a> or leave a trackback: <a class=\"trackback-link\" href=\"%s\" title=\"Trackback URL for your post\" rel=\"trackback\">Trackback URL</a>."
+msgstr "<a class=\"comment-link\" href=\"#respond\" title=\"Publica un comentario\">Publica un comentario</a> o deja un trackback: <a class=\"trackback-link\" href=\"%s\" title=\"Trackback URL de tu publicación\" rel=\"trackback\">URL del Trackback</a>."
+
+#. Text in function
+#: the-royal/tag.php:39
+#: the-royal/author.php:39
+#: the-royal/category.php:40
+#: the-royal/index.php:37
+#: the-royal/archive.php:48
+msgid "<span class=\"meta-nav\">&laquo;</span> Older posts"
+msgstr "<span class=\"meta-nav\">&laquo;</span> Publicaciones anteriores"
+
+#. Text in function
+#: the-royal/search.php:42
+msgid "<span class=\"meta-nav\">&laquo;</span> Older results"
+msgstr "<span class=\"meta-nav\">&laquo;</span> Resultados anteriores"
+
+#. Text in function
+#: the-royal/search.php:31
+#: the-royal/author.php:30
+#: the-royal/category.php:31
+#: the-royal/index.php:26
+#: the-royal/archive.php:39
+msgid "<span class=\"tag-links\">Tagged "
+msgstr "<span class=\"tag-links\">Etiquetado "
+
+#. Text in echo
+#: the-royal/functions/theme-options.php:50
+msgid "About you"
+msgstr "Sobre tí"
+
+#. Text in function
+#: the-royal/category.php:28
+msgid "Also posted in %s"
+msgstr "También publicado en %s"
+
+#. Text in function
+#: the-royal/tag.php:28
+msgid "Also tagged %s"
+msgstr "También etiquetado en %s"
+
+#. Text in echo
+#: the-royal/404.php:9
+msgid "Apologies, but we were unable to find what you were looking for. Perhaps  searching will help."
+msgstr "Disculpas, pero no pudimos encontrar lo que estabas buscando. Buscarlo podria ayudar."
+
+#. Text in echo
+#: the-royal/sidebar.php:20
+msgid "Archives"
+msgstr "Archivos"
+
+#. Text in function
+#: the-royal/author.php:8
+msgid "Author Archives: <span class=\"vcard\">%s</span>"
+msgstr "Archivos del autor: <span class=\"vcard\">%s</span>"
+
+#. Text in function
+#: the-royal/comments.php:12
+msgid "Be the first to comment"
+msgstr "Sé el primero en comentar"
+
+#. Text in echo
+#: the-royal/single.php:40
+#: the-royal/image.php:37
+#: the-royal/attachment.php:36
+msgid "Both comments and trackbacks are currently closed."
+msgstr "Ambos comentarios y trackbacks están cerrados."
+
+#. Text in function
+#: the-royal/tag.php:23
+#: the-royal/search.php:27
+#: the-royal/category.php:25
+#: the-royal/index.php:22
+#: the-royal/archive.php:35
+msgid "By %s"
+msgstr "Por %s"
+
+#. Text in echo
+#: the-royal/sidebar.php:12
+msgid "Categories"
+msgstr "Categorías"
+
+#. Text in echo
+#: the-royal/category.php:6
+msgid "Category Archives:"
+msgstr "Archivo de categorías"
+
+#. Text in function
+#: the-royal/tag.php:32
+#: the-royal/search.php:33
+#: the-royal/author.php:32
+#: the-royal/category.php:33
+#: the-royal/index.php:28
+#: the-royal/archive.php:41
+msgid "Comments (%)"
+msgstr "Comentarios (%)"
+
+#. Text in function
+#: the-royal/tag.php:32
+#: the-royal/search.php:33
+#: the-royal/author.php:32
+#: the-royal/category.php:33
+#: the-royal/index.php:28
+#: the-royal/archive.php:41
+msgid "Comments (0)"
+msgstr "Comentarios (0)"
+
+#. Text in function
+#: the-royal/tag.php:32
+#: the-royal/search.php:33
+#: the-royal/author.php:32
+#: the-royal/category.php:33
+#: the-royal/index.php:28
+#: the-royal/archive.php:41
+msgid "Comments (1)"
+msgstr "Comentarios (1)"
+
+#. Text in function
+#: the-royal/single.php:36
+#: the-royal/image.php:33
+#: the-royal/attachment.php:32
+msgid "Comments are closed, but you can leave a trackback: <a class=\"trackback-link\" href=\"%s\" title=\"Trackback URL for your post\" rel=\"trackback\">Trackback URL</a>."
+msgstr "Los comentarios no están permitidos, pero puedes dejar un trackback: <a class=\"trackback-link\" href=\"%s\" title=\"Trackback URL de tu artículo\" rel=\"trackback\">URL del Trackback</a>."
+
+#. Text in function
+#: the-royal/archive.php:9
+msgid "Daily Archives: <span>%s</span>"
+msgstr "Archivo diario: <span>%s</span>"
+
+#. Text in echo
+#: the-royal/royal-core/admin.php:48
+msgid "Display Breadcrumbs?"
+msgstr "¿Deseas mostrar breadcrumbs?"
+
+#. Text in function
+#: the-royal/tag.php:31
+#: the-royal/search.php:32
+#: the-royal/page.php:15
+#: the-royal/author.php:31
+#: the-royal/single.php:42
+#: the-royal/image.php:39
+#: the-royal/category.php:32
+#: the-royal/index.php:27
+#: the-royal/archive.php:40
+#: the-royal/attachment.php:38
+msgid "Edit"
+msgstr "Editar"
+
+#. Text in echo
+#: the-royal/functions/theme-options.php:60
+msgid "Facebook Profile"
+msgstr "Perfil de Facebook"
+
+#. Text in echo
+#: the-royal/search.php:56
+#: the-royal/404.php:13
+msgid "Find"
+msgstr "Encontrar"
+
+#. Text in echo
+#: the-royal/royal-core/options.php:44
+msgid "Framework Options"
+msgstr "Opciones del Framework"
+
+#. Text in echo
+#: the-royal/royal-core/admin.php:43
+msgid "General Options"
+msgstr "Opciones generales"
+
+#. Text in echo
+#: the-royal/royal-core/admin.php:51
+msgid "Google Analytics"
+msgstr "Google Analytics"
+
+#. Text in function
+#: the-royal/royal-core/addons.php:1
+msgid "Home"
+msgstr "Inicio"
+
+#. Text in echo
+#: the-royal/comments.php:33
+msgid "Logged in as "
+msgstr "Registrado como "
+
+#. Text in echo
+#: the-royal/comments.php:37
+msgid "Mail (will not be published) "
+msgstr "Correo Electrónico (no será publicado)"
+
+#. Text in function
+#: the-royal/archive.php:11
+msgid "Monthly Archives: <span>%s</span>"
+msgstr "Archivos mensuales: <span>%s</span>"
+
+#. Text in echo
+#: the-royal/comments.php:36
+msgid "Name"
+msgstr "Nombre"
+
+#. Text in echo
+#: the-royal/royal-core/admin.php:46
+msgid "Navigation"
+msgstr "Navegación"
+
+#. Text in function
+#: the-royal/tag.php:40
+#: the-royal/author.php:40
+#: the-royal/category.php:41
+#: the-royal/index.php:38
+#: the-royal/archive.php:49
+msgid "Newer posts <span class=\"meta-nav\">&raquo;</span>"
+msgstr "Publicaciones más recientes <span class=\"meta-nav\">&raquo;</span>"
+
+#. Text in function
+#: the-royal/search.php:43
+msgid "Newer results <span class=\"meta-nav\">&raquo;</span>"
+msgstr "Resultados más recientes <span class=\"meta-nav\">&raquo;</span>"
+
+#. Text in echo
+#: the-royal/comments.php:25
+msgid "No comments yet"
+msgstr "No hay comentarios aún"
+
+#. Text in echo
+#: the-royal/functions/theme-options.php:69
+msgid "No form for your tab..."
+msgstr "No has creado un formulario para este tab..."
+
+#. Text in echo
+#: the-royal/royal-core/admin.php:28
+msgid "No naugthy business please!"
+msgstr "¡No negocios sucios por favor!"
+
+#. Text in echo
+#: the-royal/404.php:7
+msgid "Not Found"
+msgstr "No encontrado"
+
+#. Text in echo
+#: the-royal/search.php:49
+msgid "Nothing Found"
+msgstr "Nada encontrado"
+
+#. Text in echo
+#: the-royal/sidebar.php:5
+msgid "Pages"
+msgstr "Páginas"
+
+#. Text in function
+#: the-royal/page.php:13
+#: the-royal/single.php:18
+#: the-royal/index.php:19
+msgid "Pages:"
+msgstr "Páginas"
+
+#. Text in echo
+#: the-royal/royal-core/admin.php:52
+msgid "Paste your Google Analytics code without the &lt;script&gt;&lt;/script&gt; tags"
+msgstr "Pega tu código de Google Analytics sin las etiquetas &lt;script&gt;&lt;/script&gt;"
+
+#. Text in function
+#: the-royal/tag.php:16
+#: the-royal/search.php:18
+#: the-royal/author.php:21
+#: the-royal/category.php:18
+#: the-royal/index.php:14
+#: the-royal/archive.php:28
+msgid "Permalink to %s"
+msgstr "Hipervínculo a %s"
+
+#. Text in function
+#: the-royal/image.php:20
+#: the-royal/attachment.php:19
+msgid "Posted by %1$s on <abbr class=\"published\" title=\"%2$sT%3$s\">%4$s at %5$s</abbr>. Bookmark the <a href=\"%6$s\" title=\"Permalink to %7$s\" rel=\"bookmark\">permalink</a>. Follow any comments here with the <a href=\"%8$s\" title=\"Comments RSS to %7$s\" rel=\"alternate\" type=\"application/rss+xml\">RSS feed for this post</a>."
+msgstr "Publicado por %1$s en <abbr class=\"published\" title=\"%2$sT%3$s\">%4$s at %5$s</abbr>. Agrega el marcador de <a href=\"%6$s\" title=\"Hipervículo a %7$s\" rel=\"bookmark\">este artículo</a>. Sigue cualquier comentario aquí con el <a href=\"%8$s\" title=\"RSS de comentarios de %7$s\" rel=\"alternate\" type=\"application/rss+xml\">feed de RSS de esta publicación</a>."
+
+#. Text in function
+#: the-royal/tag.php:25
+#: the-royal/search.php:29
+#: the-royal/author.php:28
+#: the-royal/index.php:24
+#: the-royal/archive.php:37
+msgid "Posted in %s"
+msgstr "Publicado en %s"
+
+#. Text in function
+#: the-royal/functions/custom-functions.php:1
+msgid "Primary Navigation"
+msgstr "Navegación primaria"
+
+#. Text in function
+#: the-royal/tag.php:19
+#: the-royal/search.php:21
+#: the-royal/author.php:24
+#: the-royal/category.php:21
+#: the-royal/index.php:17
+#: the-royal/archive.php:31
+msgid "Read More <span class=\"meta-nav\">&raquo;</span>"
+msgstr "Leer más <span class=\"meta-nav\">&raquo;</span>"
+
+#. Text in function
+#: the-royal/image.php:8
+#: the-royal/attachment.php:8
+msgid "Return to %s"
+msgstr "Regresar a %s"
+
+#. Text in echo
+#: the-royal/search.php:8
+msgid "Search Results for:"
+msgstr "Resultados de búsqueda para:"
+
+#. Text in echo
+#: the-royal/royal-core/options.php:49
+msgid "Settings saved!"
+msgstr "¡Opciones guardadas!"
+
+#. Text in echo
+#: the-royal/archive.php:15
+msgid "Site Archives"
+msgstr "Archivos del sitio"
+
+#. Text in echo
+#: the-royal/functions/theme-options.php:57
+msgid "Socialmedia"
+msgstr "Socialmedia"
+
+#. Text in echo
+#: the-royal/search.php:51
+msgid "Sorry, but nothing matched your search criteria. Please try again with some different keywords."
+msgstr "Disculpas, pero nada encontrado para tu criterio de búsqueda. Por favor intenta de nuevo con algunas palabras clave diferentes."
+
+#. Text in echo
+#: the-royal/comments.php:41
+msgid "Submit Comment"
+msgstr "Enviar comentario"
+
+#. Text in echo
+#: the-royal/tag.php:6
+msgid "Tag Archives:"
+msgstr "Archivos de etiqueta:"
+
+#. Text in echo
+#: the-royal/comments.php:47
+msgid "The comments are closed."
+msgstr "Comentarios están cerrados."
+
+#. Text in function
+#: the-royal/royal-core/options.php:1
+msgid "Theme Options"
+msgstr "Opciones del Tema"
+
+#. Text in function
+#: the-royal/single.php:21
+msgid "This entry was written by %1$s, posted on <abbr class=\"published\" title=\"%2$sT%3$s\">%4$s at %5$s</abbr>, filed under %6$s%7$s. Bookmark the <a href=\"%8$s\" title=\"Permalink to %9$s\" rel=\"bookmark\">permalink</a>. Follow any comments here with the <a href=\"%10$s\" title=\"Comments RSS to %9$s\" rel=\"alternate\" type=\"application/rss+xml\">RSS feed for this post</a>."
+msgstr "Esta publicación fue escrita por %1$s, publicada en <abbr class=\"published\" title=\"%2$sT%3$s\">%4$s at %5$s</abbr>, archivada en %6$s%7$s. Añadela a tu marcador, <a href=\"%8$s\" title=\"Hipervínculo a %9$s\" rel=\"bookmark\">hipervínculo</a>. Sigue cualquier comentario aquí con el <a href=\"%10$s\" title=\"RSS de comentarios para %9$s\" rel=\"alternate\" type=\"application/rss+xml\">Feed de RSS de este artículo</a>."
+
+#. Text in echo
+#: the-royal/comments.php:7
+msgid "This post is password protected. Enter the password to view comments."
+msgstr "Esta publicación está protegida con contraseña. Ingresa la contraseña para ver los comentarios"
+
+#. Text in echo
+#: the-royal/single.php:38
+#: the-royal/image.php:35
+#: the-royal/attachment.php:34
+msgid "Trackbacks are closed, but you can <a class=\"comment-link\" href=\"#respond\" title=\"Post a comment\">post a comment</a>."
+msgstr "Los trackbacks están cerrados, pero puedes <a class=\"comment-link\" href=\"#respond\" title=\"Publicar un comentario\">publicar un comentario</a>."
+
+#. Text in echo
+#: the-royal/functions/theme-options.php:64
+msgid "Twitter Username"
+msgstr "Usuario de Twitter"
+
+#. Text in echo
+#: the-royal/functions/theme-options.php:65
+msgid "Type your @username (without the @)"
+msgstr "Ingresa tu @usuario (sin el @)"
+
+#. Text in echo
+#: the-royal/functions/theme-options.php:61
+msgid "Type your profile link"
+msgstr "Ingresa el hipervínculo de tu perfil"
+
+#. Text in echo
+#: the-royal/royal-core/admin.php:55
+#: the-royal/functions/theme-options.php:74
+msgid "Update Options"
+msgstr "Guardar opciones"
+
+#. Text in function
+#: the-royal/tag.php:23
+#: the-royal/search.php:27
+#: the-royal/single.php:21
+#: the-royal/image.php:20
+#: the-royal/category.php:25
+#: the-royal/index.php:22
+#: the-royal/archive.php:35
+#: the-royal/attachment.php:19
+msgid "View all posts by %s"
+msgstr "Ver todas las publicaciones de %s"
+
+#. Text in echo
+#: the-royal/comments.php:38
+msgid "Website"
+msgstr "Sitio web"
+
+#. Text in echo
+#: the-royal/footer.php:3
+msgid "WordPress"
+msgstr "Wordpress"
+
+#. Text in echo
+#: the-royal/functions/theme-options.php:53
+msgid "Write here your bio"
+msgstr "Escribe aquí tu biografía"
+
+#. Text in function
+#: the-royal/archive.php:13
+msgid "Yearly Archives: <span>%s</span>"
+msgstr "Archivos anuales: <span>%s</span>"
+
+#. Text in function
+#: the-royal/comments.php:2
+msgid "You can not access this page directly!"
+msgstr "¡No puedes ingresar a esta página directamente!"
+
+#. Text in echo
+#: the-royal/comments.php:30
+msgid "You must be "
+msgstr "Debes estar "
+
+#. Text in echo
+#: the-royal/comments.php:17
+msgid "Your comment is awaiting approval"
+msgstr "Tu comentario está esperando aprobación"
+
+#. Text in echo
+#: the-royal/comments.php:20
+msgid "at"
+msgstr "a las "
+
+#. Text in echo
+#: the-royal/comments.php:20
+msgid "by"
+msgstr "por"
+
+#. Text in echo
+#: the-royal/comments.php:30
+msgid "logged in"
+msgstr "resitrado"
+
+#. Text in echo
+#: the-royal/comments.php:20
+msgid "on"
+msgstr "en"
+
+#. Text in echo
+#: the-royal/comments.php:30
+msgid "to post a comment."
+msgstr "para publicar un comentario."
+
+#. Text in echo
+#: the-royal/footer.php:5
+msgid "trf"
+msgstr "trf"
+
+#. Text in echo
+#: the-royal/footer.php:5
+msgid "trf theme for WordPress"
+msgstr "tema trf para Wordpress"
+
