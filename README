@@ -1,6 +1,9 @@
 The Royal Framework is an idea from Royal Estudios.
-Under GPL Licence - 2012.
+Under GPL Licence - 2013.
 
 Do it good, to it better.
 
 http://royalestudios.com
+
+Instructions:
+Just paste the following folders and replace your functions.php with the functions.php included in this zip. Also copy and paste the functions you had in your functions.php to /functions/custom-functions.php.
