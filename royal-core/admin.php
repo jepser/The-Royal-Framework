@@ -16,44 +16,46 @@
 
 if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) { die(); }
 
-function trf_update()
-{
-	// this is where validation would go
-	if(check_admin_referer('trfNonce', 'nonce')){
-		if ($_POST['display_breadcrumbs'] == 'on'){ $display = 'checked'; } else { $display = ''; }
-		update_option('trf-option["display_breadcrumbs"]', $display);
-		update_option('trf-option["google_code"]', stripslashes($_POST['google_code']));
-	} else { ?>
-    <div class="updated settings-error" id="setting-error-settings_updated"> 
-        <p><strong><?php _e('No naugthy business please!','trf'); ?></strong></p>
-    </div>
-	<?php }
-}
-
-
 function royal_framework_tab() {
 ?>
-
-        <div class="royal-pcontent" id="framework">
-        <?php if ( $_POST['update_trf'] == 'true' ) { trf_update(); } ?>
-		<form method="post" action="<?php echo $_SERVER['REQUEST_URI'] . "&saved=true"; ?>">
-        	<?php wp_nonce_field('trfNonce','nonce'); ?>
-        	<input type="hidden" name="update_trf" value="true" />
-        
+		<?php settings_fields( 'trf_settings' ); ?>
+        <div class="royal-pcontent" id="framework"> 
+        	<h4><?php _e('Navigation','trf'); ?></h4>
+            <table class="form-table">
+            	<tr>
+                	<th scope="row"><?php _e('Breadcrumbs','trf') ?></th>
+                    <td><label for="display_breadcrumbs" class="opt">
+                    	<input type="checkbox" name="display_breadcrumbs" id="display_breadcrumbs" <?php echo (get_option('display_breadcrumbs')) ? 'checked' : ''; ?> /> <?php _e('Display Breadcrumbs?','trf') ?></label>
+                    </td>
+                </tr>
+                <tr>
+	                <th scope="row"><?php _e('Homepage link','trf') ?></th>
+                    <td>
+                	<label for="show_home" class="opt"><input type="checkbox" name="show_home" id="show_home" <?php echo (get_option('show_home')) ? 'checked' : ''; ?> /> <?php _e('Include homepage link on breadcrumbs','trf') ?></label>
+                    </td>
+                </tr>
+            </table>
 			<h4><?php _e('General Options','trf') ?></h4>
             <table class="form-table">
             	<tr>
-                	<th scope="row"><?php _e('Navigation','trf') ?></th>
-                    <td><label for="display_breadcrumbs" class="opt">
-                    	<input type="checkbox" name="display_breadcrumbs" id="display_breadcrumbs" <?php echo get_option('trf-option["display_breadcrumbs"]'); ?> /><?php _e('Display Breadcrumbs?','trf') ?></label></td>
+                	<th scope="row"><?php _e('Google Analytics','trf') ?></th>
+                    <td><textarea cols="60" rows="10" name="google_code" id="gcode"><?php echo stripslashes(get_option('google_code')); ?></textarea><br /><span class="description"><?php _e('Paste your Google Analytics code without the &lt;script&gt;&lt;/script&gt; tags','trf') ?></span></td>
+                </tr>
+                <tr valign="top">
+                    <th scope="row"><?php _e('Upload favicon image','trf'); ?></th>
+                    <td><label for="upload_image">
+                    <input id="upload_image" type="text" size="36" name="favicon" value="<?php echo get_option('favicon'); ?>" />
+                    <input id="upload_image_button" class="button" type="button" value="Upload Image" />
+                    <br /><small><?php _e('Enter an URL or upload an image for the banner.','trf'); ?></small>
+                    </label></td>
                 </tr>
                 <tr>
-                	<th scope="row"><?php _e('Google Analytics','trf') ?></th>
-                    <td><textarea cols="50" rows="10" name="google_code" id="google_code"><?php echo stripslashes(get_option('trf-option["google_code"]')); ?></textarea><br /><span class="description"><?php _e('Paste your Google Analytics code without the &lt;script&gt;&lt;/script&gt; tags','trf') ?></span></td>
+                	<th scope="row"><?php _e('Maintenance Mode','trf'); ?></th>
+                    <td><label for="m_mode" class="opt">
+                    	<input type="checkbox" name="m_mode" id="m_mode" <?php echo (get_option('m_mode')) ? 'checked' : ''; ?> /> <?php _e('Activate maintenance mode','trf') ?><br/><small><?php _e('Is you want to change the look of your landing page, modify 503.php in your theme.'); ?></small></label>
+                    
+                    </td>
                 </tr>
-            </table>  
-            <p><input type="submit" name="search" value="<?php _e('Update Options','trf') ?>" class="button-primary" /></p>
-		</form>
+            </table>
         </div><!--royal-pcontent-->
-
 <?php } //royal_framework_tab() ?>

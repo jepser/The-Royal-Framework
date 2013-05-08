@@ -16,35 +16,225 @@
 if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) { die(); }
 
 //theme with breadcrumbs incluided
-function the_breadcrumbs() {
-	$checked = get_option('trf-option["display_breadcrumbs"]');
+function the_breadcrumbs($args = '') {
+	$checked = get_option('display_breadcrumbs');
 	if($checked){
-    $CPtheFullUrl = $_SERVER["REQUEST_URI"];
-    $CPurlArray=explode("/",$CPtheFullUrl);
-	echo '<div class="breadcrumbs">';
-    echo '<a href="'. get_bloginfo('wpurl') .'">'. __('Home','trf') .'</a>';
-    while (list($CPj,$CPtext) = each($CPurlArray)) {
-        $CPdir='';
-        if ($CPj > 1) {
-            $CPi=1;
-            while ($CPi < $CPj) {
-                $CPdir .= '/' . $CPurlArray[$CPi];
-                $CPtext = $CPurlArray[$CPi];
-                $CPi++;
-            }
-            if($CPj < count($CPurlArray)-1) echo ' &raquo; <a href="'.$CPdir.'">' . str_replace("-", " ", $CPtext) . '</a>';
-        }
-    }
-    echo wp_title();
-	echo '</div>';
+	global $post, $wp_query;
+	
+	if( !$home ) $home = _x('Home', 'trf');
+	
+	$home_link = home_url();
+	
+	$defaults = array(
+		'delimiter'  => ' &rsaquo; ',
+		'wrap_before'  => '<div id="breadcrumb">',
+		'wrap_after' => '</div>',
+		'before'   => '',
+		'after'   => '',
+		'home'    => null
+	);
+	$args = wp_parse_args( $args, $defaults  );
+	
+	extract( $args, EXTR_SKIP );
+
+	$prepend = '';
+	
+	if(function_exists('woocommerce_get_page_id')) {
+		if ( get_option('show_home') == "on" && woocommerce_get_page_id('shop') && get_option('page_on_front') !== woocommerce_get_page_id('shop') )
+			$prepend =  $before . '<a href="' . get_permalink( woocommerce_get_page_id('shop') ) . '">' . get_the_title( woocommerce_get_page_id('shop') ) . '</a> ' . $after . $delimiter;
+	}
+	if ( (!is_home() && !is_front_page() && !(is_post_type_archive() && get_option('page_on_front')== get_page_id('shop'))) || is_paged() ) :
+		echo $wrap_before;
+		echo $before  . '<a class="home" href="' . $home_link . '">' . $home . '</a> '  . $after . $delimiter ;
+		if ( is_category() ) :
+			$cat_obj = $wp_query->get_queried_object();
+			$this_category = $cat_obj->term_id;
+			$this_category = get_category( $this_category );
+			if ($this_category->parent != 0) :
+				$parent_category = get_category( $this_category->parent );
+				echo get_category_parents($parent_category, TRUE, $delimiter );
+			endif;
+			echo $before . single_cat_title('', false) . $after;
+		
+		elseif ( is_tax() ) :
+			
+			echo $prepend;
+			$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
+		
+			$parents = array();
+			$parent = $term->parent;
+			while ($parent):
+				$parents[] = $parent;
+				$new_parent = get_term_by( 'id', $parent, get_query_var( 'taxonomy' ));
+				$parent = $new_parent->parent;
+			endwhile;
+			
+			if(!empty($parents)):
+				$parents = array_reverse($parents);
+				foreach ($parents as $parent):
+					$item = get_term_by( 'id', $parent, get_query_var( 'taxonomy' ));
+					echo $before .  '<a href="' . get_term_link( $item->slug, $item->taxonomy ) . '">' . $item->name . '</a>' . $after . $delimiter;
+				endforeach;
+			endif;
+		
+			$queried_object = $wp_query->get_queried_object();
+			echo $before . $queried_object->name . $after;
+		
+		elseif ( is_tax('product_tag') ) :
+		
+			$queried_object = $wp_query->get_queried_object();
+			echo $prepend . $before . __('Products tagged &ldquo;', 'trf') . $queried_object->name . '&rdquo;' . $after;
+		
+		elseif ( is_day() ) :
+		
+			echo $before . '<a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a>' . $after . $delimiter;
+			echo $before . '<a href="' . get_month_link(get_the_time('Y'),get_the_time('m')) . '">' . get_the_time('F') . '</a>' . $after . $delimiter;
+			echo $before . get_the_time('d') . $after;
+		
+		elseif ( is_month() ) :
+		
+			echo $before . '<a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a>' . $after . $delimiter;
+			echo $before . get_the_time('F') . $after;
+		
+		elseif ( is_year() ) :
+		
+			echo $before . get_the_time('Y') . $after;
+		
+		elseif ( is_post_type_archive('product') && get_option('page_on_front') !== get_page_id('shop') ) :
+		
+			$_name = get_page_id('shop') ? get_the_title( get_page_id('shop') ) : ucwords(get_option('woocommerce_shop_slug'));
+		
+			if (is_search()) :
+		
+				echo $before . '<a href="' . get_post_type_archive_link('product') . '">' . $_name . '</a>' . $delimiter . __('Search results for &ldquo;', 'trf') . get_search_query() . '&rdquo;' . $after;
+		
+			else :
+		
+				echo $before . '<a href="' . get_post_type_archive_link('product') . '">' . $_name . '</a>' . $after;
+		
+			endif;
+		
+		elseif ( is_single() && !is_attachment() ) :
+		
+		if ( get_post_type() == 'product' ) :
+		
+				echo $prepend;
+		
+				if ($terms = wp_get_object_terms( $post->ID, 'product_cat' )) :
+				$term = current($terms);
+				$parents = array();
+				$parent = $term->parent;
+				while ($parent):
+					$parents[] = $parent;
+					$new_parent = get_term_by( 'id', $parent, 'product_cat');
+					$parent = $new_parent->parent;
+				endwhile;
+				if(!empty($parents)):
+					$parents = array_reverse($parents);
+					foreach ($parents as $parent):
+						$item = get_term_by( 'id', $parent, 'product_cat');
+						echo $before . '<a href="' . get_term_link( $item->slug, 'product_cat' ) . '">' . $item->name . '</a>' . $after . $delimiter;
+					endforeach;
+				endif;
+				echo $before . '<a href="' . get_term_link( $term->slug, 'product_cat' ) . '">' . $term->name . '</a>' . $after . $delimiter;
+			endif;
+		
+			echo $before . get_the_title() . $after;
+		
+		elseif ( get_post_type() != 'post' ) :
+			$post_type = get_post_type_object(get_post_type());
+			$slug = $post_type->rewrite;
+				echo $before . '<a href="' . get_post_type_archive_link(get_post_type()) . '">' . $post_type->labels->singular_name . '</a>' . $after . $delimiter;
+			echo $before . get_the_title() . $after;
+		else :
+		
+			$cat = current(get_the_category());
+			
+			$current_cat_list = get_category_parents($cat, TRUE, $delimiter);
+			echo $current_cat_list;
+			echo $before . get_the_title() . $after;
+		endif;
+		
+		elseif ( is_404() ) :
+		
+			echo $before . __('Error 404', 'trf') . $after;
+		
+		elseif ( !is_single() && !is_page() && get_post_type() != 'post' ) :
+		
+			$post_type = get_post_type_object(get_post_type());
+			if ($post_type) : echo $before . $post_type->labels->singular_name . $after; endif;
+		
+		elseif ( is_attachment() ) :
+		
+			$parent = get_post($post->post_parent);
+			$cat = get_the_category($parent->ID); $cat = $cat[0];
+			echo get_category_parents($cat, TRUE, '' . $delimiter);
+			echo $before . '<a href="' . get_permalink($parent) . '">' . $parent->post_title . '</a>' . $after . $delimiter;
+			echo $before . get_the_title() . $after;
+		
+		elseif ( is_page() && !$post->post_parent ) :
+		
+			echo $before . get_the_title() . $after;
+		
+		elseif ( is_page() && $post->post_parent ) :
+		
+			$parent_id  = $post->post_parent;
+			$breadcrumbs = array();
+			while ($parent_id) {
+				$page = get_page($parent_id);
+				$breadcrumbs[] = '<a href="' . get_permalink($page->ID) . '">' . get_the_title($page->ID) . '</a>';
+				$parent_id  = $page->post_parent;
+			}
+			$breadcrumbs = array_reverse($breadcrumbs);
+			foreach ($breadcrumbs as $crumb) :
+				echo $crumb . '' . $delimiter;
+			endforeach;
+			echo $before . get_the_title() . $after;
+		
+		elseif ( is_search() ) :
+		
+			echo $before . __('Search results for &ldquo;', 'trf') . get_search_query() . '&rdquo;' . $after;
+		
+		elseif ( is_tag() ) :
+		
+				echo $before . __('Posts tagged &ldquo;', 'trf') . single_tag_title('', false) . '&rdquo;' . $after;
+		
+		elseif ( is_author() ) :
+		
+			$userdata = get_userdata($author);
+			echo $before . __('Author:', 'trf') . ' ' . $userdata->display_name . $after;
+		
+		endif;
+		
+		if ( get_query_var('paged') ) :
+		
+			echo ' (' . __('Page', 'trf') . ' ' . get_query_var('paged') .')';
+		
+		endif;
+		
+		echo $wrap_after;
+	
+	endif;
 	}
 }
 
 
 //get_block('name of the archive I want to load')
-function get_block($nombre_bloque){
-	$bloque = include(TRF_PATH .'includes/' . $nombre_bloque . '.php');
-	return $bloque;
+function get_block($block_name, $args = array()){
+	//global $post;
+	
+	if($args && is_array($args)){
+		global $wp_query; 
+		$wp_query->set('custom',$args);
+	}
+	
+	//changes from version 0.7
+	/*if(is_child_theme()) {
+		$block = include(get_stylesheet_directory() .'/includes/' . $block_name . '.php');
+	} else {
+		$block = include(TRF_PATH .'includes/' . $block_name . '.php');
+	}*/
+	locate_template('includes/' . $block_name . '.php', true, false);
 }
 
 //filter for custom excerpts
@@ -68,7 +258,7 @@ function custom_excerpt($excerpt_num, $p = true, $separator = '...'){
 //function to get just the thumb url of the current post
 // get_thumb_url('thumbnail','medium','large','full') any of this sizes
 function get_thumb_url($tsize, $tpost = '') {
-	if($tpost == '') $tpost = $post->ID;
+	if($tpost == '') $tpost = get_the_id();
 	$image_id = get_post_thumbnail_id($tpost);  
 	$image_url = wp_get_attachment_image_src($image_id,$tsize);  
 	$image_url = $image_url[0];
@@ -120,5 +310,83 @@ remove_action('wp_head', 'feed_links_extra', 3);
 remove_action('wp_head', 'start_post_rel_link', 10, 0);
 remove_action('wp_head', 'parent_post_rel_link', 10, 0);
 remove_action('wp_head', 'adjacent_posts_rel_link', 10, 0);
+
+function get_facebook_profile($i = 'all'){
+	$fp = get_option('facebook_username');
+	
+	if(!$fp) {
+		return false;
+	} else {
+		$fp_response = wp_remote_get('http://graph.facebook.com/' . $fp);
+	
+		if($fp_response['response']['message']) { 
+		$json_fb = json_decode($fp_response['body']);
+			switch($i){
+				case 'all' :
+					return $json_fb;
+					break;
+				case 'name':
+					return $json_fb->name;
+					break;
+				case 'first_name':
+					return $json_fb->first_name;
+					break;
+				case 'last_name':
+					return $json_fb->last_name;
+					break;
+				case 'link':
+					return $json_fb->link;
+					break;
+				case 'username':
+					return $json_fb->username;
+					break;
+				case 'gender':
+					return $json_fb->gender;
+					break;
+				case 'id':
+					return $json_fb->id;
+					break;
+				case 'picture':
+					return '<img src="https://graph.facebook.com/' . $json_fb->id . '/picture?type=large">';
+					break;
+				default :
+					return $json_fb;
+					break;
+			}
+		} //$fp*/
+	}
+}
+
+function twitter_profile($url = true){
+	$tw = get_option('twitter_username');
+	if($tw){
+		if($url == true){
+			return 'http://twitter.com/#!/' . $tw;
+		} else {
+			return $tw;
+		} // if($url)
+	}
+}
+
+function youtube_profile(){
+	$yt = get_option('youtube_username');
+	return $yt;
+}
+
+function gplus_profile(){
+	$gp = get_option('gplus_username');
+	return $gp;
+}
+
+$five05 = get_option('m_mode');
+if($five05 && !is_user_logged_in()) {
+	function five03_redirect(){
+		header('HTTP/1.1 503 Service Temporarily Unavailable');
+		header('Retry-After: Sat, 8 Oct 2011 18:27:00 GMT');
+		//get_template_part('503');
+		//exit();
+	}
+	add_action('init', 'five03_redirect');
+}
 
 ?>

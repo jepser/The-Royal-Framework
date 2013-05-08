@@ -26,4 +26,8 @@ function currentPageName() {
 	return $url[$count];
 }
 
+function current_page_name() { 
+  return call_user_func_array('currentPageName', func_get_args());
+}
+
 ?>

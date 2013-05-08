@@ -29,6 +29,12 @@ register_nav_menus( array(
 		'primary' => __( 'Primary Navigation', 'trf' ),
 	) );
 
+add_action('wp_head','add_less', 1);	
+function add_less(){
+	$less = '<link rel="stylesheet/less" type="text/css" href="' . get_bloginfo('stylesheet_directory') . '/style.less">';
+	$less .= '<script src="' . get_bloginfo('stylesheet_directory') . '/scripts/less-1.3.0.min.js" type="text/javascript"></script>';
+	echo $less;
+}
 //load_theme_textdomain('your theme domain', get_stylesheet_directory() . '/languages');
 	
 ?>
