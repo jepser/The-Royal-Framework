@@ -1,6 +1,73 @@
 The Royal Framework is an idea from Royal Estudios.
 Under GPL Licence - 2013.
 
+Framework Core for making themes.
+
+Adds more functionality to your theme:
+- Adds custom menu "principal" - in custom-functions.php
+- Adds thumbnail support
+- Removes unused meta tags
+- Adds images to RSS Feeds
+- Creates clear div, [clear /] useful when using 960.gs
+- New breadcrumbs function the_breadcrumbs();
+- Register a second sidebar get_sidebar(2)
+- Create an options panel
+
+Theme Options Panel:
+- Upload favicon from admin menu
+- 503 (In construction) template with a non-login user landing page
+- Adds a custom textarea to paste your google analytics code
+- Adds a "profile box" - get_field('bio','option')
+- Adds get_facebook_profile() - that gets data from the admin setted user using graph API
+- Adds twitter_profile() function
+
+Available functions (for developers)
+
+get_facebook_profile($arg), options available:
+- all (returns an object)
+- link
+- name
+- first name
+- last name
+- username
+- gender
+- id
+- picture
+
+twitter_profile()
+ - For now your the user profile url
+ 
+(get_)custom_excerpt($number_of_words, $terminator = '...') - function to that returns the number of words
+
+the_custom_excerpt($number_of_words, $p = true, $terminator = '...') 
+- The $p parameter is to wrap or not the return string with '</p>' tags
+
+get_block($block_name, $args = array())
+- Functions that include and parse a php file from /includes/ folder (you have to create it)
+- The $args passed in the functions appear as $custom variable (type array)
+- ex. get_block('block',array('a' => 2)), will be available if block.php exists in the includes folder and the variable as $custom['a']
+
+the_breadcrumbs($args) - With these args
+$defaults = array(
+    'delimiter'  => ' &rsaquo; ',
+    'wrap_before'  => '<div id="breadcrumb">',
+    'wrap_after' => '</div>',
+    'before'   => '',
+    'after'   => '',
+    'home'    => null
+);
+
+Filters:
+
+- To add a page in the Options section just add your filter using this filter "trf-option-pages"
+- To add fields in the framework section of another tab "trf-framework-tab-fields"
+
+In the future:
+
+- I will add more filters and mini-plugins
+- I will create a couple of hooks in order to make more flexible de theme development
+- I'm finishing the blank theme that will come with the framework
+
 Do it good, to it better.
 
 http://royalestudios.com

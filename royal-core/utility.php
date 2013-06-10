@@ -20,14 +20,13 @@ function clear_func($atts) {
 }
 add_shortcode('clear', 'clear_func');
 
-function currentPageName() {
-	$url = explode("/", $_SERVER["REQUEST_URI"]);
-	$count = count($url) -2;
-	return $url[$count];
+function five03_redirect(){
+	$redirect = get_field('five03','option');
+    if(!is_user_logged_in() && $redirect ){
+        include( get_template_directory() . '/503.php' );
+        exit();
+    }
 }
-
-function current_page_name() { 
-  return call_user_func_array('currentPageName', func_get_args());
-}
+add_action( 'template_redirect', 'five03_redirect' );
 
 ?>

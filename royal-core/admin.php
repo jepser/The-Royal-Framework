@@ -1,9 +1,8 @@
 <?php
-
 // This file is part of the The Royal Theme for WordPress
 // http://theroyalframework.com
 //
-// Copyright (c) 2009-2010 Royal Estudios. All rights reserved.
+// Copyright (c) 2009-2013 Royal Estudios. All rights reserved.
 // http://royalestudios.com
 //
 // Released under the GPL license
@@ -16,46 +15,119 @@
 
 if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) { die(); }
 
-function royal_framework_tab() {
+function trf_acf_settings( $options )
+{
+    // activate add-ons
+    $options['activation_codes']['repeater'] = 'QJF7-L4IX-UCNP-RF2W';
+    $options['activation_codes']['options_page'] = 'OPN8-FA4J-Y2LW-81LS';
+ 
+    
+    // set options page structure
+    $options['options_page']['title'] = __('Options','trf');
+    $options['options_page']['pages'] = apply_filters('trf-option-pages', array('Framework'));
+    
+        
+    return $options;
+    
+}
+add_filter('acf_settings', 'trf_acf_settings');
+
+$default_framework_options = array (
+	
+	'id' => 'general_options',
+	'title' => __('General Options','trf'),
+	'fields' => apply_filters('trf-framework-tab-fields', array(
+		array (
+			'key' => 'go',
+			'label' => __('General Options','trf'),
+			'name' => '',
+			'type' => 'tab',
+		),
+		array (
+			'key' => 'breadcrumbs',
+			'label' => __('Breadcrumbs','trf'),
+			'name' => 'breadcrumbs',
+			'type' => 'true_false',
+			'instructions' => __('Display Breadcrumbs?','trf'),
+			'required' => '0',
+		),
+		array (
+			'key' => 'google_code',
+			'label' => __('Google Analytics','trf'),
+			'name' => 'google_code',
+			'type' => 'textarea',
+			'instructions' =>  __('Paste your Google Analytics code without the &lt;script&gt;&lt;/script&gt; tags','trf'),
+			'required' => '0',
+		),
+		array (
+			'save_format' => 'url',
+			'library' => 'all',
+			'key' => 'favicon',
+			'label' => __('Favicon','trf'),
+			'name' => 'favicon',
+			'type' => 'file',
+		),
+		array (
+			'key' => 'five03',
+			'label' => __('In construction landing page','trf'),
+			'name' => 'five03',
+			'type' => 'true_false',
+			'instructions' => __('Want to display 503 template page until you finish your site?','trf'),
+			'required' => '0',
+		),
+		array (
+			'key' => 'profile_tab',
+			'label' => __('Profile','trf'),
+			'name' => '',
+			'type' => 'tab',
+		),
+		array (
+			'key' => 'profile',
+			'label' => __('About you','trf'),
+			'name' => 'profile',
+			'type' => 'textarea',
+			'instructions' =>  __('Write here your bio','trf'),
+			'required' => '0',
+		),
+		array (
+			'key' => 'facebook_username',
+			'label' => __('Facebook Profile','trf'),
+			'name' => 'facebook_username',
+			'type' => 'text',
+			'instructions' =>  __('Type your profile ID or slug (http://facebook.com/"YOUR_PROFILE")','trf'),
+			'required' => '0',
+		),
+		array (
+			'key' => 'twitter_username',
+			'label' => __('Twitter Username','trf'),
+			'name' => 'twitter_username',
+			'type' => 'text',
+			'instructions' =>  __('Type your @username (without the @)','trf'),
+			'required' => '0',
+		),
+	)),
+	'location' => array (
+		'rules' => array (
+			array (
+				'param' => 'options_page',
+				'operator' => '==',
+				'value' => 'acf-options-framework',
+				'order_no' => '0',
+			),
+		),
+		'allorany' => 'all',
+	),
+	'options' => 
+		array (
+			'position' => 'normal',
+			'layout' => 'no_box',
+			'hide_on_screen' => 
+			array (
+			),
+		),
+		'menu_order' => 0,
+);
+register_field_group($default_framework_options);
+
+
 ?>
-		<?php settings_fields( 'trf_settings' ); ?>
-        <div class="royal-pcontent" id="framework"> 
-        	<h4><?php _e('Navigation','trf'); ?></h4>
-            <table class="form-table">
-            	<tr>
-                	<th scope="row"><?php _e('Breadcrumbs','trf') ?></th>
-                    <td><label for="display_breadcrumbs" class="opt">
-                    	<input type="checkbox" name="display_breadcrumbs" id="display_breadcrumbs" <?php echo (get_option('display_breadcrumbs')) ? 'checked' : ''; ?> /> <?php _e('Display Breadcrumbs?','trf') ?></label>
-                    </td>
-                </tr>
-                <tr>
-	                <th scope="row"><?php _e('Homepage link','trf') ?></th>
-                    <td>
-                	<label for="show_home" class="opt"><input type="checkbox" name="show_home" id="show_home" <?php echo (get_option('show_home')) ? 'checked' : ''; ?> /> <?php _e('Include homepage link on breadcrumbs','trf') ?></label>
-                    </td>
-                </tr>
-            </table>
-			<h4><?php _e('General Options','trf') ?></h4>
-            <table class="form-table">
-            	<tr>
-                	<th scope="row"><?php _e('Google Analytics','trf') ?></th>
-                    <td><textarea cols="60" rows="10" name="google_code" id="gcode"><?php echo stripslashes(get_option('google_code')); ?></textarea><br /><span class="description"><?php _e('Paste your Google Analytics code without the &lt;script&gt;&lt;/script&gt; tags','trf') ?></span></td>
-                </tr>
-                <tr valign="top">
-                    <th scope="row"><?php _e('Upload favicon image','trf'); ?></th>
-                    <td><label for="upload_image">
-                    <input id="upload_image" type="text" size="36" name="favicon" value="<?php echo get_option('favicon'); ?>" />
-                    <input id="upload_image_button" class="button" type="button" value="Upload Image" />
-                    <br /><small><?php _e('Enter an URL or upload an image for the banner.','trf'); ?></small>
-                    </label></td>
-                </tr>
-                <tr>
-                	<th scope="row"><?php _e('Maintenance Mode','trf'); ?></th>
-                    <td><label for="m_mode" class="opt">
-                    	<input type="checkbox" name="m_mode" id="m_mode" <?php echo (get_option('m_mode')) ? 'checked' : ''; ?> /> <?php _e('Activate maintenance mode','trf') ?><br/><small><?php _e('Is you want to change the look of your landing page, modify 503.php in your theme.'); ?></small></label>
-                    
-                    </td>
-                </tr>
-            </table>
-        </div><!--royal-pcontent-->
-<?php } //royal_framework_tab() ?>

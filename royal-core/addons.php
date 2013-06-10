@@ -17,13 +17,10 @@ if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) { die(); }
 
 //theme with breadcrumbs incluided
 function the_breadcrumbs($args = '') {
-	$checked = get_option('display_breadcrumbs');
+	$checked = get_field('breadcrumbs','option');
 	if($checked){
 	global $post, $wp_query;
 	
-	if( !$home ) $home = _x('Home', 'trf');
-	
-	$home_link = home_url();
 	
 	$defaults = array(
 		'delimiter'  => ' &rsaquo; ',
@@ -34,15 +31,14 @@ function the_breadcrumbs($args = '') {
 		'home'    => null
 	);
 	$args = wp_parse_args( $args, $defaults  );
-	
 	extract( $args, EXTR_SKIP );
-
+	
+	$home_link = home_url();
+	if( !$home ) $home = __('Home', 'trf');
+	
 	$prepend = '';
 	
-	if(function_exists('woocommerce_get_page_id')) {
-		if ( get_option('show_home') == "on" && woocommerce_get_page_id('shop') && get_option('page_on_front') !== woocommerce_get_page_id('shop') )
-			$prepend =  $before . '<a href="' . get_permalink( woocommerce_get_page_id('shop') ) . '">' . get_the_title( woocommerce_get_page_id('shop') ) . '</a> ' . $after . $delimiter;
-	}
+	
 	if ( (!is_home() && !is_front_page() && !(is_post_type_archive() && get_option('page_on_front')== get_page_id('shop'))) || is_paged() ) :
 		echo $wrap_before;
 		echo $before  . '<a class="home" href="' . $home_link . '">' . $home . '</a> '  . $after . $delimiter ;
@@ -80,11 +76,6 @@ function the_breadcrumbs($args = '') {
 			$queried_object = $wp_query->get_queried_object();
 			echo $before . $queried_object->name . $after;
 		
-		elseif ( is_tax('product_tag') ) :
-		
-			$queried_object = $wp_query->get_queried_object();
-			echo $prepend . $before . __('Products tagged &ldquo;', 'trf') . $queried_object->name . '&rdquo;' . $after;
-		
 		elseif ( is_day() ) :
 		
 			echo $before . '<a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a>' . $after . $delimiter;
@@ -116,44 +107,19 @@ function the_breadcrumbs($args = '') {
 		
 		elseif ( is_single() && !is_attachment() ) :
 		
-		if ( get_post_type() == 'product' ) :
-		
-				echo $prepend;
-		
-				if ($terms = wp_get_object_terms( $post->ID, 'product_cat' )) :
-				$term = current($terms);
-				$parents = array();
-				$parent = $term->parent;
-				while ($parent):
-					$parents[] = $parent;
-					$new_parent = get_term_by( 'id', $parent, 'product_cat');
-					$parent = $new_parent->parent;
-				endwhile;
-				if(!empty($parents)):
-					$parents = array_reverse($parents);
-					foreach ($parents as $parent):
-						$item = get_term_by( 'id', $parent, 'product_cat');
-						echo $before . '<a href="' . get_term_link( $item->slug, 'product_cat' ) . '">' . $item->name . '</a>' . $after . $delimiter;
-					endforeach;
-				endif;
-				echo $before . '<a href="' . get_term_link( $term->slug, 'product_cat' ) . '">' . $term->name . '</a>' . $after . $delimiter;
-			endif;
-		
-			echo $before . get_the_title() . $after;
-		
-		elseif ( get_post_type() != 'post' ) :
-			$post_type = get_post_type_object(get_post_type());
-			$slug = $post_type->rewrite;
-				echo $before . '<a href="' . get_post_type_archive_link(get_post_type()) . '">' . $post_type->labels->singular_name . '</a>' . $after . $delimiter;
-			echo $before . get_the_title() . $after;
-		else :
-		
-			$cat = current(get_the_category());
+			if ( get_post_type() != 'post' ) :
+				$post_type = get_post_type_object(get_post_type());
+				$slug = $post_type->rewrite;
+					echo $before . '<a href="' . get_post_type_archive_link(get_post_type()) . '">' . $post_type->labels->singular_name . '</a>' . $after . $delimiter;
+				echo $before . get_the_title() . $after;
+			else :
 			
-			$current_cat_list = get_category_parents($cat, TRUE, $delimiter);
-			echo $current_cat_list;
-			echo $before . get_the_title() . $after;
-		endif;
+				$cat = current(get_the_category());
+				
+				$current_cat_list = get_category_parents($cat, TRUE, $delimiter);
+				echo $current_cat_list;
+				echo $before . get_the_title() . $after;
+			endif;
 		
 		elseif ( is_404() ) :
 		
@@ -219,7 +185,7 @@ function the_breadcrumbs($args = '') {
 }
 
 
-//get_block('name of the archive I want to load')
+//get_block('name of the archive I want to load', your args in array)
 function get_block($block_name, $args = array()){
 	//global $post;
 	
@@ -228,12 +194,6 @@ function get_block($block_name, $args = array()){
 		$wp_query->set('custom',$args);
 	}
 	
-	//changes from version 0.7
-	/*if(is_child_theme()) {
-		$block = include(get_stylesheet_directory() .'/includes/' . $block_name . '.php');
-	} else {
-		$block = include(TRF_PATH .'includes/' . $block_name . '.php');
-	}*/
 	locate_template('includes/' . $block_name . '.php', true, false);
 }
 
@@ -265,29 +225,7 @@ function get_thumb_url($tsize, $tpost = '') {
 	return $image_url;
 }
 
-//regenerates the use of Wordpress builtin image cropping using Tim Thumb
-//get_custom_thumb(any of the get_thumb_url size options,width of the image in px, height of the image in px, class (optional))
-function get_custom_thumb($tsize,$thumbw = 9999,$thumbh = 9999,$tclass='sthumb'){
-	$thumbtitle = get_the_title();
-	$thumb_url = get_thumb_url($tsize);
-	echo '<img src="' . get_bloginfo('template_url'). '/royal-core/scripts/timthumb.php?src='. $thumb_url .'&h='. $thumbh . '&w='. $thumbw .'&zc=1" alt="'. $thumbtitle .'" class="'. $tclass .'" title="'. $thumbtitle .'" />';
-	
-}
 
-//get easily the page ID using its slug
-function get_page_id($page_name)
-{
-	global $wpdb;
-	$page_name_id = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_name = '".$page_name."'");
-	return $page_name_id;
-}
-
-//get the slug of a post default $post->ID
-function get_the_slug($cpostid = ''){
-	if($cpostid = '') { $cpostid = get_the_id(); }
-	$slug = basename(get_permalink($cpostid));
-	return $slug;
-}
 
 //adding thumbnails to the RSS credits http://digwp.com/2010/06/show-post-thumbnails-in-feeds/
 function royal_post_thumbnail_feeds($content) {
@@ -312,7 +250,7 @@ remove_action('wp_head', 'parent_post_rel_link', 10, 0);
 remove_action('wp_head', 'adjacent_posts_rel_link', 10, 0);
 
 function get_facebook_profile($i = 'all'){
-	$fp = get_option('facebook_username');
+	$fp = get_field('facebook_username','option');
 	
 	if(!$fp) {
 		return false;
@@ -358,10 +296,10 @@ function get_facebook_profile($i = 'all'){
 }
 
 function twitter_profile($url = true){
-	$tw = get_option('twitter_username');
+	$tw = get_field('twitter_username','option');
 	if($tw){
 		if($url == true){
-			return 'http://twitter.com/#!/' . $tw;
+			return 'http://twitter.com/' . $tw;
 		} else {
 			return $tw;
 		} // if($url)
