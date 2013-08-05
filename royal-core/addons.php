@@ -316,15 +316,4 @@ function gplus_profile(){
 	return $gp;
 }
 
-$five05 = get_option('m_mode');
-if($five05 && !is_user_logged_in()) {
-	function five03_redirect(){
-		header('HTTP/1.1 503 Service Temporarily Unavailable');
-		header('Retry-After: Sat, 8 Oct 2011 18:27:00 GMT');
-		//get_template_part('503');
-		//exit();
-	}
-	add_action('init', 'five03_redirect');
-}
-
 ?>

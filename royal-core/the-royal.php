@@ -26,10 +26,10 @@ if (!defined('TRF_PATH')) {
 
 load_theme_textdomain('trf', TRF_PATH . 'royal-core/languages');
 
-//including acf
-if(!class_exists('acf_lite')) { 
-	require_once('acf/acf-lite.php');
-}
+//define( 'ACF_LITE' , true );
+//if(!class_exists('acf_lite')) { 
+//include_once('acf/acf.php' );
+//include_once('acf-repeater/acf-repeater.php' );
 
 include_once(TRF_PATH.'royal-core/options.php');
 include_once(TRF_PATH.'royal-core/admin.php');

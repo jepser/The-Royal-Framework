@@ -20,7 +20,6 @@ if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) { die(); }
 
 define('TRF_PATH', trailingslashit(TEMPLATEPATH));
 
-include_once(TRF_PATH.'royal-core/sandbox-based.php');
 include_once(TRF_PATH.'royal-core/the-royal.php');
 include_once(TRF_PATH.'functions/custom-functions.php');
 
